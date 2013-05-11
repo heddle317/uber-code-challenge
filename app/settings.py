@@ -9,6 +9,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+from app.utils import encryption
 DATABASES = {
         'default': {
                     'NAME': '',
