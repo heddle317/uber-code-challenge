@@ -11,3 +11,19 @@ body {
 #map-canvas {
     height: 100%;
 }
+
+#find-address {
+    position:absolute;
+    z-index:2000;
+    left:100px;
+    top:20px;
+    padding:5px;
+    background-color:#FFFFFF;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+}
+
+#find-address input {
+    width:400px;
+}

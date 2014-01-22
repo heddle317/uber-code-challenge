@@ -4,7 +4,17 @@
     <script src="{{static_base}}js/landing.js"></script>
 {% endblock %}
 {% block content %}
-<div id="map-canvas" ng-controller="MapCtrl" ng-init="initialize()"/>
+<span ng-controller="MapCtrl" ng-init="initialize()">
+    <form id='find-address' class='form-inline text-center' ng-controller='AddressCtrl' ng-submit='addAddressMarker()'>
+        <div class='form-group'>
+            <input class='form-control' type='text' ng-model='address' placeholder='Address' >
+        </div>
+        <div class='form-group'>
+            <button class='btn btn-primary'>Find Bike Parking</button>
+        </div>
+    </form>
+    <div id="map-canvas"/>
+</span>
 {% endblock %}
 {% block popup %}
 {% endblock %}
