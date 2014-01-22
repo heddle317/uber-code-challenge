@@ -8,7 +8,9 @@ from django.views.static import serve as django_static_serve
 
 urlpatterns = patterns('',
     # Home Page
-    (r'^uber/code-challenge/', 'app.views.home_page'),
+    (r'^uber/code-challenge/$', 'app.views.home_page'),
+    # User Location
+    (r'^uber/code-challenge/user-city/$', 'app.apis.get_user_city'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

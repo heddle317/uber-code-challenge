@@ -1,10 +1,20 @@
 function MapCtrl($scope, $http) {
-    $scope.initialize = function() {
-        //initLat and initLng are calculated from the user's IP address
+    $scope.map = null;
+    /* 
+       This will immediately call an API to get the users latLng from their IP address.
+       I'm making this asynchronous in case the API call is slow, I don't want it to slow
+       down the initial page load.
+    */
+    $http.get('user-city/').success(function(data, status, headers, config) {
+        $scope.initialize(data.lat, data.lng, 14);
+    });
+
+    $scope.initialize = function(lat, lng, zoom) {
         $scope.mapOptions = {
-            center: new google.maps.LatLng(initLat, initLng),
-            zoom: 14
+            zoom: zoom,
+            center: new google.maps.LatLng(lat, lng)
         };
+
         $scope.map = new google.maps.Map(document.getElementById("map-canvas"), $scope.mapOptions);
 
     };
