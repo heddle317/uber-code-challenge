@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html ng-app='uberCCApp' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />    
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-resource.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="{{static_base}}js/angular_app_module.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{google_api_key}}&sensor=true"></script>
+
+        <link href="{{static_base}}css/base.css" rel="stylesheet" media="screen"></link>
+        <script type="text/javascript">
+            var csrftoken = '{{ csrf_token }}';
+            var static_base = '{{static_base}}';
+            var initLat = {{lat}};
+            var initLng = {{lng}};
+        </script>
+        {% block head%}{% endblock %}
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>

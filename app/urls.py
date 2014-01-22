@@ -7,6 +7,9 @@ from django.views.static import serve as django_static_serve
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    # Home Page
+    (r'^uber/code-challenge/', 'app.views.home_page'),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

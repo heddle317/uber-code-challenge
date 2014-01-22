@@ -55,3 +55,6 @@ logfile
 
 # secret key file
 secret.py
+
+# we don't need to track the folder where the static files are server from, just the static folder
+static-serve/*

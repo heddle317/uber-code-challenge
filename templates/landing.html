@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Bike Parking{% endblock %}
+{% block head %}
+    <script src="{{static_base}}js/landing.js"></script>
+{% endblock %}
+{% block content %}
+<div id="map-canvas" ng-controller="MapCtrl" ng-init="initialize()"/>
+{% endblock %}
+{% block popup %}
+{% endblock %}
