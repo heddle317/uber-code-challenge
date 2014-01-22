@@ -16,6 +16,7 @@
         <script type="text/javascript">
             var csrftoken = '{{ csrf_token }}';
             var static_base = '{{static_base}}';
+            var socrata_url = 'https://data.sfgov.org/resource/w969-5mn4.json?$$app_token={{socrata_app_token}}';
         </script>
         {% block head%}{% endblock %}
     </head>

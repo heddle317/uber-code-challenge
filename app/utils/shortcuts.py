@@ -15,6 +15,7 @@ def render_to_template(template_file, context=None, request=None):
     context = context if context else {}
     context['static_base'] = settings.STATIC_BASE_LINK
     context['google_api_key'] = settings.GOOGLE_API_KEY
+    context['socrata_app_token'] = settings.SOCRATA_APP_TOKEN
     if request:
         context['request'] = request
         context['user'] = request.user

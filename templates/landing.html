@@ -4,7 +4,7 @@
     <script src="{{static_base}}js/landing.js"></script>
 {% endblock %}
 {% block content %}
-<span ng-controller="MapCtrl" ng-init="initialize(46.073, -100.546, 6)">
+<span ng-controller="MapCtrl" ng-init="initialize(46.073, -100.546, 3)">
     <form id='find-address' class='form-inline text-center' ng-controller='AddressCtrl' ng-submit='addAddressMarker()'>
         <div class='form-group'>
             <input class='form-control' type='text' ng-model='address' placeholder='Address' >

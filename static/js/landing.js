@@ -6,7 +6,12 @@ function MapCtrl($scope, $http) {
        down the initial page load.
     */
     $http.get('user-city/').success(function(data, status, headers, config) {
-        $scope.initialize(data.lat, data.lng, 14);
+        if ($scope.map === null) {
+            $scope.initialize(data.lat, data.lng, 14);
+        } else {
+            $scope.map.setCenter(new google.maps.LatLng(data.lat, data.lng));
+            $scope.map.setZoom(14);
+        }
     });
 
     $scope.initialize = function(lat, lng, zoom) {
@@ -26,6 +31,7 @@ function MapCtrl($scope, $http) {
             map: $scope.map,
             title: title
         });
+        $scope.map.setZoom(17);
         if (center) {
             $scope.map.setCenter(latLng);
         }
@@ -36,6 +42,7 @@ function MapCtrl($scope, $http) {
 function AddressCtrl($scope, $http) {
     $scope.address = '';
     $scope.addressMarker = null;
+    $scope.bikeMarkers = [];
 
     $scope.addAddressMarker = function() {
         // Clear out old address and markers.
@@ -48,7 +55,7 @@ function AddressCtrl($scope, $http) {
         $http.get(url, {params: args}).success(function(data, status, headers, config) {
             $scope.geoCodeSuccess(data);
         }).error(function(data, status, headers, config) {
-            $scope.geoCodeFail();
+            alert("There was an error finding the given address.");
         });
     };
 
@@ -62,13 +69,35 @@ function AddressCtrl($scope, $http) {
         $scope.findClosestBikeParking();
     };
 
-    $scope.geoCodeFail = function() {
-        trace("Geocoding failed");
-    };
+    $scope.findClosestBikeParking = function() {
+        var offset = 0.003;
+        var latA = $scope.addressMarker.position.lat() + offset;
+        var latB = $scope.addressMarker.position.lat() - offset;
+        var lngA = $scope.addressMarker.position.lng() + offset;
+        var lngB = $scope.addressMarker.position.lng() - offset;
+        var url = socrata_url + '&$where=within_box(coordinates,' + latA + '°,' + lngB + '°,' + latB + '°,' + lngA + '°)';
+        url = url + "&status='COMPLETE'";
+        $http.get(url).success(function(data, status, headers, config) {
+            var i;
+            for (i=0;i < data.length; i++) {
+                var lat = data[i].coordinates.latitude;
+                var lng = data[i].coordinates.longitude;
+                var name = data[i].yr_inst;
+                var marker = $scope.addLocationMarker(lat, lng, name, false);
+                marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+                $scope.bikeMarkers.push(marker);
+            }
+        });
+    }
 
     $scope.clear = function() {
         if ($scope.addressMarker !== null) {
             $scope.addressMarker.setMap(null);
         }
+        var i;
+        for (i=0; i < $scope.bikeMarkers.length; i++) {
+            $scope.bikeMarkers[i].setMap(null);
+        }
+        $scope.bikeMarkers = [];
     };
 };
